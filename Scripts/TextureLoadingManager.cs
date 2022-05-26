@@ -33,7 +33,11 @@ namespace RuntimeFileLoader
                 do
                 {
                     www = UnityWebRequestTexture.GetTexture(url);
-                    await www.SendWebRequest();
+                    UnityWebRequestAsyncOperation asyncOp = www.SendWebRequest();
+                    while (!asyncOp.isDone)
+                    {
+                        await Task.Yield();
+                    }
                     if (www.result != UnityWebRequest.Result.Success)
                     {
                         Debug.LogError($"[{nameof(TextureLoadingManager)}] Network Error: {www.error}");
