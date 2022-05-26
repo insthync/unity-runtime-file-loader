@@ -28,6 +28,9 @@ namespace RuntimeFileLoader
                 UnityWebRequest www;
                 do
                 {
+#if UNITY_EDITOR
+                    float startTime = Time.unscaledTime;
+#endif
                     www = UnityWebRequest.Get(url);
                     UnityWebRequestAsyncOperation asyncOp = www.SendWebRequest();
                     while (!asyncOp.isDone)
@@ -43,7 +46,11 @@ namespace RuntimeFileLoader
                     }
                     else
                     {
-                        modelBytes[url] = www.downloadHandler.data;
+                        DownloadHandler downloadHandler = www.downloadHandler;
+#if UNITY_EDITOR
+                        Debug.Log("Mesh loaded from " + url + " size " + downloadHandler.data.Length.ToString("N0") + " duration " + (Time.unscaledTime - startTime));
+#endif
+                        modelBytes[url] = downloadHandler.data;
                         return modelBytes[url];
                     }
                 } while (attempsCount < attempts);

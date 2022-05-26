@@ -32,6 +32,9 @@ namespace RuntimeFileLoader
                 UnityWebRequest www;
                 do
                 {
+#if UNITY_EDITOR
+                    float startTime = Time.unscaledTime;
+#endif
                     www = UnityWebRequestTexture.GetTexture(url);
                     UnityWebRequestAsyncOperation asyncOp = www.SendWebRequest();
                     while (!asyncOp.isDone)
@@ -47,6 +50,10 @@ namespace RuntimeFileLoader
                     }
                     else
                     {
+                        DownloadHandlerTexture downloadHandler = (DownloadHandlerTexture)www.downloadHandler;
+#if UNITY_EDITOR
+                        Debug.Log("Texture loaded from " + url + " size " + downloadHandler.data.Length.ToString("N0") + " duration " + (Time.unscaledTime - startTime));
+#endif
                         textures[url] = ((DownloadHandlerTexture)www.downloadHandler).texture;
                         return textures[url];
                     }
