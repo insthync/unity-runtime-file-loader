@@ -1,0 +1,16 @@
+{
+    "name": "RuntimeFileLoade",
+    "rootNamespace": "",
+    "references": [
+        "GUID:990b6e18ab3cf04438457177dd4e2883"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
