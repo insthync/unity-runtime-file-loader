@@ -1,8 +1,8 @@
 {
-    "name": "RuntimeFileLoade",
+    "name": "RuntimeFileLoader",
     "rootNamespace": "",
     "references": [
-        "GUID:990b6e18ab3cf04438457177dd4e2883"
+        "Siccity.GLTFUtility"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
