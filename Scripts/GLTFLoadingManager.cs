@@ -1,4 +1,5 @@
 using Siccity.GLTFUtility;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -9,6 +10,20 @@ namespace RuntimeFileLoader
     public class GLTFLoadingManager
     {
         private static readonly Dictionary<string, byte[]> modelBytes = new Dictionary<string, byte[]>();
+
+        public static async void GetModel(string url, Action<GameObject> onLoaded, int attempts = 10)
+        {
+            GameObject gameObject = await GetModel(url, attempts);
+            if (onLoaded != null)
+                onLoaded.Invoke(gameObject);
+        }
+
+        public static async void GetModelBytes(string url, Action<byte[]> onLoaded, int attempts = 10)
+        {
+            byte[] bytes = await GetModelBytes(url, attempts);
+            if (onLoaded != null)
+                onLoaded.Invoke(bytes);
+        }
 
         public static async Task<GameObject> GetModel(string url, int attempts = 10)
         {

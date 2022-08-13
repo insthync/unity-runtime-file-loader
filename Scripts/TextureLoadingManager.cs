@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -9,6 +10,20 @@ namespace RuntimeFileLoader
     {
         private static readonly Dictionary<string, Texture2D> textures = new Dictionary<string, Texture2D>();
         private static readonly Dictionary<string, Sprite> sprites = new Dictionary<string, Sprite>();
+
+        public static async void GetSprite(string url, Action<Sprite> onLoaded, int attempts = 10)
+        {
+            Sprite sprite = await GetSprite(url, attempts);
+            if (onLoaded != null)
+                onLoaded.Invoke(sprite);
+        }
+
+        public static async void GetTexture(string url, Action<Texture2D> onLoaded, int attempts = 10)
+        {
+            Texture2D texture = await GetTexture(url, attempts);
+            if (onLoaded != null)
+                onLoaded.Invoke(texture);
+        }
 
         public static async Task<Sprite> GetSprite(string url, int attempts = 10)
         {

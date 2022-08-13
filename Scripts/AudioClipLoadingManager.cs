@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -10,6 +9,13 @@ namespace RuntimeFileLoader
     public class AudioClipLoadingManager
     {
         private static readonly Dictionary<string, AudioClip> audioClips = new Dictionary<string, AudioClip>();
+
+        public static async void GetAudioClip(string url, Action<AudioClip> onLoaded, int attempts = 10)
+        {
+            AudioClip clip = await GetAudioClip(url, attempts);
+            if (onLoaded != null)
+                onLoaded.Invoke(clip);
+        }
 
         public static async Task<AudioClip> GetAudioClip(string url, int attempts = 10)
         {
