@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 
 namespace RuntimeFileLoader
 {
-    public class AudioClipLoading
+    public class AudioClipLoadingManager
     {
         private static readonly Dictionary<string, AudioClip> audioClips = new Dictionary<string, AudioClip>();
 
