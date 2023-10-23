@@ -58,7 +58,9 @@ namespace RuntimeFileLoader
                     }
                     if (www.result != UnityWebRequest.Result.Success)
                     {
-                        Debug.LogError($"[{nameof(TextureLoadingManager)}] Network Error: {www.error}");
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+                        Debug.LogError($"[{nameof(TextureLoadingManager)}] Network Error: {www.error} from URL: {url}");
+#endif
                         if (www.error.Equals("Malformed URL"))
                             textures[url] = null;
                         attempsCount++;

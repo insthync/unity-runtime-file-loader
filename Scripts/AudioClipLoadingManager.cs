@@ -46,7 +46,9 @@ namespace RuntimeFileLoader
                     }
                     if (www.result != UnityWebRequest.Result.Success)
                     {
-                        Debug.LogError("[AudioClipFromUrlLoader] Network Error: " + www.error);
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+                        Debug.LogError($"[{nameof(AudioClipLoadingManager)}] Network Error: {www.error} from URL: {url}");
+#endif
                         if (www.error.Equals("Malformed URL"))
                             audioClips[url] = null;
                         attempsCount++;
